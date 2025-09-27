@@ -65,7 +65,7 @@ A glance at **Question 15** tells us that the event logs have the command line d
 
 ![image](./assests/1.png)
 
-That's 2137 events and we don't know when the attacker first moves is. Luckily Window Defender Logs also records potentially malicious commands. Lines with ***"Engine:command line reported as lowfi:"*** in the log will reveal sus commands.
+That's 2137 events and we don't know when the attacker first moves is. Luckily Window Defender Logs also records potentially malicious commands. Lines with **"Engine:command line reported as lowfi:"** in the log will reveal sus commands.
 
 
 ```log {4, 8} wrap=false startLineNumber=5463 title="MPLog-20250421-104305.log" 
@@ -82,11 +82,11 @@ Internal signature match:subtype=Lowfi, sigseq=0x0001CBD78CB6CDD5, sigsha=42fd23
 2025-08-24T22:50:59.195 Using signature default action MP_THREAT_ACTION_ALLOW(6) for special threatID: 0x565c7b9a7ffffffe
 ```
 
-Having seen the attacker's command pattern, we can filtered for events that contains the string ***cmd.exe /Q /c*** in its message and left us with only 46 events.
+Having seen the attacker's command pattern, we can filtered for events that contains the string **"cmd.exe /Q /c"** in its message and left us with only 46 events.
 
 ![image](./assests/2.png)
 
-And since both of the cd commands in the Defender Logs are both at August 24^th^, we find are the events which answers **Quesion 1**.
+Skips the first few **cd** commands and we can find the event which answers **Quesion 1**.
 
 ![image](./assests/3.png)
 
@@ -119,15 +119,13 @@ Or you can ask the expert like this:
 ### Question 4
 > What was the attacker’s IP address? (IPv4 address)
 
-Since the attack used a remote-execution tool, he would have left some *Window Logon Type 3* events, more about that event [here](https://www.manageengine.com/products/active-directory-audit/kb/what-is/logon-type-3.html). For Window logon events. filter for event id **4624** and looks for `LogonType` of 3.
+Since the attack used a remote-execution tool, he should left some *Window Logon Type 3* events, more about that event [here](https://www.manageengine.com/products/active-directory-audit/kb/what-is/logon-type-3.html). For Window logon events. filter for event id **4624** and looks for `LogonType` of 3.
 
 ![image](./assests/5.png)
 
 **Answer:** 10.129.242.110
 
-::tip
 You can use this tool to speed up your logs analysis.
-::
 
 ::github{repo="WithSecureLabs/chainsaw"}
 
@@ -314,14 +312,14 @@ You can browse to that key with Registry Explorer to see the value:
 :::note[MITRE ATT&CK ID?]
 MITRE ATT&CK is a public, continually updated knowledge base of how real attackers operate so defenders can detect, stop, and talk about attacks in a common language. It’s organized into tactics and techniques, each with their on ID. Some common IDs
 
-* **T1566 - Phishing** is a technique in ***Initial Access*** tactic.
-* **T1055 - Process Injection** is in ***Privilege Escalation*** tactic.
-* **T1041 - Exfiltration Over C2 Channel** is a technique of ***Exfiltration***.
+* **T1566 - Phishing** is a technique in **Initial Access** tactic.
+* **T1055 - Process Injection** is in **Privilege Escalation** tactic.
+* **T1041 - Exfiltration Over C2 Channel** is a technique of **Exfiltration***.
 
 For the whole framwork, visit the offical website at https://attack.mitre.org
 :::
 
-Based on the case, it is implies that internal-proxy setup is of ***Command and Control*** tactic and after browwsing the framework we can find this technique's page:
+Based on the case, it is implies that internal-proxy setup is of **Command and Control** tactic and after browwsing the framework we can find this technique's page:
 
 ![image](./assests/11.png)
 
