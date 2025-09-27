@@ -144,7 +144,7 @@ The attacker created a schduled task to maintain persistence named **SysHelper U
 ### Question 6
 > Identify the script executed by the persistence mechanism. (C:\FOLDER\PATH\FILE.ext)
 
-Yes.
+Based on the above command line.
 
 **Answer:** C:\Users\Werni\Appdata\Local\JM.ps1
 
