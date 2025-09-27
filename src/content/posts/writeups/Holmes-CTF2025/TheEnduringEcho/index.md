@@ -38,7 +38,7 @@ To solve this challenge, I’ll need to answer the following 14 questions:
 
 ## Artifacts
 
-The scenario files give us significant disk artifacts that will be analysed to answer the above questions:
+The scenario files give us significant disk artifacts that could be analysed to answer the above questions:
 * Window Event Logs `C:\Windows\System32\winevt\logs\`
 * Window Defender Logs `C:\ProgramData\Microsoft\Windows Defender\Support\`
 * User Journal \$J `C:\$Extend\$J`
@@ -287,7 +287,7 @@ Based on the above netsh command.
 ### Question 12
 > What is the full registry path that stores persistent IPv4->IPv4 TCP listener-to-target mappings? (HKLM\\...\\...)
 
-The question asked for a registry path for IPv4 mappings. If you dont familiar with Window Registry, it is a big, structured database where Windows and apps store settings. In this question it is asking specifically about `HKEY_LOCAL_MACHINE` hive (or `HKLM`) which storesmachine-wide settings (hardware, drivers, services). 
+The question asked for a registry path for IPv4 mappings. If you dont familiar with Window Registry, it is a big, structured database where Windows and apps store settings. In this question it is asking specifically about `HKEY_LOCAL_MACHINE` hive (or `HKLM`) which stores machine-wide settings (hardware, drivers, services). 
 
 :::note[HKEY_LOCAL_MACHINE]
 `HKLM` hive is devided into 3 on-disk file called SAM, SOFTWARE and SYSTEM and all can be found at `C:\Windows\Systemn32\config\`:
