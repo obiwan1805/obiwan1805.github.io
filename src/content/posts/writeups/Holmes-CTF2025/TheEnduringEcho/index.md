@@ -44,7 +44,7 @@ The scenario files give us significant disk artifacts that could be analysed to 
 * User Journal \$J `C:\$Extend\$J`
 * Master File Table \$MFT `C:\$MFT`
 * Windows Registry hive files `C:\Windows\System32\config\`
-* Amchache hive `C:\Windows\AppCompat\Programs\Amcache.hve`
+* Amcache hive `C:\Windows\AppCompat\Programs\Amcache.hve`
 
 > *Window Event Logs plays the biggest role here*
 
@@ -106,7 +106,12 @@ The above event have this information.
 ### Question 3
 > Which remote-execution tool was most likely used for the attack? (filename.ext)
 
-If you like me who have no idea what tool is this, it's best to ask experts.
+Looks like we gotta do some OSINT, base on the command lines in Defender Logs we can find pages like https://devel.group/blog/peoples-republic-of-china-state-sponsored-cyber-actor-living-off-the-land-to-evade-detection that leads to a tool called **wmiexec\.py** that belongs to Impacket toolkit.
+
+![image](./assests/12.png)
+
+Or you can ask the expert like this:
+
 ![image](./assests/4.png)
 
 **Answer:** wmiexec\.py
@@ -266,7 +271,7 @@ The system's timezone is UTC +7.
 ### Question 10
 > What was the IP address of the internal system the attacker pivoted to? (IPv4 address)
 
-Keep bowsing **4688** events around `2025-08-24T23:05:09.7646587Z` will lead you to this event. 
+Keep browsing **4688** events around `2025-08-24T23:05:09.7646587Z` will lead you to this event. 
 
 ![image](./assests/7.png)
 
@@ -287,18 +292,18 @@ Based on the above netsh command.
 ### Question 12
 > What is the full registry path that stores persistent IPv4->IPv4 TCP listener-to-target mappings? (HKLM\\...\\...)
 
-The question asked for a registry path for IPv4 mappings. If you dont familiar with Window Registry, it is a big, structured database where Windows and apps store settings. In this question it is asking specifically about `HKEY_LOCAL_MACHINE` hive (or `HKLM`) which stores machine-wide settings (hardware, drivers, services). 
+The question asked for a registry path for IPv4 mappings. If you are not familiar with Window Registry, it is a big, structured database where Windows and apps store settings. In this question it is asking specifically about `HKEY_LOCAL_MACHINE` hive (or `HKLM`) which stores machine-wide settings (hardware, drivers, services). 
 
 :::note[HKEY_LOCAL_MACHINE]
 `HKLM` hive is devided into 3 on-disk file called SAM, SOFTWARE and SYSTEM and all can be found at `C:\Windows\Systemn32\config\`:
 * SAM: `HKLM\SAM\...` - stores local user/group info and password hashes. 
 * SYSTEM: `HKLM\SYSTEM\...` - system configuration (services, timezone, boot/LSA data used to decrypt SAM, etc.). 
-* SOFTWAR: `HKLM\SOFTWARE\...` - installed software and OS configuration.
+* SOFTWARE: `HKLM\SOFTWARE\...` - installed software and OS configuration.
 :::
 
 ![image](./assests/8.png)
 
-You can browse to that key with Regitry Explorer to see the value:
+You can browse to that key with Registry Explorer to see the value:
 
 ![imgae](./assests/10.png)
 
@@ -400,7 +405,18 @@ Get-MpComputerStatus | Select-Object AMRunningMode, RealTimeProtectionEnabled
 12. `HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4\tcp`
 13. `T1090.001`
 14. `reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit" /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f`
+## Timeline
+
+> *This is the part where I visualised what happened in this challenge based on our investigation.*
+
+|Time (UTC)|Description|Reference
+|--|--|--|
+|2025-08-24 15:50:57|The attacker logged on with suspicious IP.|Windows EventLog|
+|2025-08-24 15:50:58|`WmiPrvSE.exe` ran arbitrary commands for reconnaissance.|Microsoft Defender|
+|2025-08-24 16:03:50|`WmiPrvSE.exe` created a task called `SysHelper Update` for persistence.|Microsoft Defender|
+|2025-08-24 16:05:09|`SysHelper Update` executed `JM.ps1`.|Windows EventLog|
+|2025-08-24 16:05:09|`JM.ps1` adds a local user and exfiltrated its credential to the attacker.|Windows EventLog|
+|2025-08-24 16:10:05|Tha attacker set PortProxy rule, enabling remote access through `0.0.0.0:9999`|Windows EventLog|
 
 ## Epilogue
-
-Hope you learn something from this write up. Writing this takes a lot of time, but there are still four more challenges in this CTF—stay tuned! If I’ve made any mistakes, please feel free to contact me.
+Because this is an Easy sherlock, I tried to add as much detail as possible. Hope you learn something from this write up. Writing this takes a lot of time, but there are still four more challenges in this CTF-stay tuned! If I’ve made any mistakes, please feel free to contact me.
