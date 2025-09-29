@@ -1,7 +1,7 @@
 ---
 title: Holmes CTF 2025 - The Enduring Echo
 published: 2024-09-27
-description: "Difficulty: Easy"
+description: "by obiwan"
 image: "./holmesctf2025.jpg"
 tags: ["Easy", "CTF", "Sherlock", "DFIR"]
 category: Writeups
@@ -38,7 +38,8 @@ To solve this challenge, I’ll need to answer the following 14 questions:
 
 ## Artifacts
 
-The scenario files give us significant disk artifacts that could be analysed to answer the above questions:
+Given artifacts:
+
 * Window Event Logs `C:\Windows\System32\winevt\logs\`
 * Window Defender Logs `C:\ProgramData\Microsoft\Windows Defender\Support\`
 * User Journal \$J `C:\$Extend\$J`
@@ -404,8 +405,6 @@ Get-MpComputerStatus | Select-Object AMRunningMode, RealTimeProtectionEnabled
 13. `T1090.001`
 14. `reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit" /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f`
 ## Timeline
-
-> *This is the part where I visualised what happened in this challenge based on our investigation.*
 
 |Time (UTC)|Description|Reference
 |--|--|--|
