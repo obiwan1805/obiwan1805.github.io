@@ -815,3 +815,10 @@ print(bytes(tableA))
 ```
 
 Flag: `HCMUS-CTF{d1d_y0u_kn0vv_y0u12_O5_c4n_d0_th1s?}`
+
+
+
+Visits my teamate's writeups: 
+
+Hikari: https://hackmd.io/b65W7LwUR22ILmg_YNiIxQ
+HuLi: https://docs.google.com/document/d/1YReRxAvp3Ea7Xkc8DbuN2d-vPIflDCxhYS6iZuYAdfo/edit?usp=sharing
