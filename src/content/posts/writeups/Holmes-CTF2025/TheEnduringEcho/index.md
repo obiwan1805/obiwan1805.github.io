@@ -1,6 +1,6 @@
 ---
 title: Holmes CTF 2025 - The Enduring Echo
-published: 2024-09-27
+published: 2025-09-27
 description: "by obiwan"
 image: "./holmesctf2025.jpg"
 tags: ["Easy", "CTF", "Sherlock", "DFIR"]

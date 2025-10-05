@@ -1,6 +1,6 @@
 ---
 title: Holmes CTF 2025 - The Tunnel Without Walls
-published: 2024-09-29
+published: 2025-09-29
 description: "by obiwan"
 image: "./holmesctf2025.jpg"
 tags: ["Hard", "CTF", "Sherlock", "DFIR", "MemDump"]
